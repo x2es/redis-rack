@@ -1,10 +1,13 @@
-require 'rack/session/abstract/id'
+# Replaced rack with action dispatch.  Only works with Rails now
+# But uses Rails cookie setting
+# require 'rack/session/abstract/id'
+require 'action_dispatch/middleware/session/abstract_store'
 require 'redis-store'
 require 'thread'
 
 module Rack
   module Session
-    class Redis < Abstract::ID
+    class Redis < ActionDispatch::Session::AbstractStore
       attr_reader :mutex, :pool
 
       DEFAULT_OPTIONS = Abstract::ID::DEFAULT_OPTIONS.merge \
